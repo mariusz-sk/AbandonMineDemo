@@ -1,4 +1,4 @@
-# abandon-mine-demo
+# AbandonMineDemo
  Zadanie testowe dla GDT
  
 Celem zadania jest stworzenie prototypu gry za pomocą Unity w wersji od 2020.1 wzwyż.
