@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Pickaxe_ItemData
   m_EditorClassIdentifier: 
   itemClass: pickaxe
-  inventoryIcon: {fileID: 21300000, guid: 74ef721fef79c44489d4e3edb0ab0c01, type: 3}
+  inventoryIcon: {fileID: 169668409, guid: d2b51d5787f94844ea08fc6a40e5f206, type: 3}

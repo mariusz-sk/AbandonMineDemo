@@ -16,13 +16,16 @@ namespace AbandonMine.UI
         private void OnEnable()
         {
             OnShowEvent += OnShowEventHandler;
+            OnHideEvent += OnHideEventHandler;
+
             PlayerInventory.OnInventoryListUpdatedEvent += OnInventoryListUpdatedEventHandler;
         }
-
 
         private void OnDisable()
         {
             OnShowEvent -= OnShowEventHandler;
+            OnHideEvent -= OnHideEventHandler;
+
             PlayerInventory.OnInventoryListUpdatedEvent -= OnInventoryListUpdatedEventHandler;
         }
 
@@ -31,15 +34,20 @@ namespace AbandonMine.UI
             PlayerInventory.Instance.UpdateItemList();
         }
 
+        private void OnHideEventHandler()
+        {
+            DestroyItemListVisuals();
+        }
+
         private void OnInventoryListUpdatedEventHandler()
         {
-            Debug.Log("Inventory list updated");
+            //Debug.Log("Inventory list updated");
             RegenerateItemListVisuals();
         }
 
         private void RegenerateItemListVisuals()
         {
-            DestroyItemListVisuals();
+            //DestroyItemListVisuals();
 
             var itemList = PlayerInventory.Instance.GetItemList();
 

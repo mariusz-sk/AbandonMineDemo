@@ -256,7 +256,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 12}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &56829284
 MonoBehaviour:
@@ -314,7 +314,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &336898147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f8ccccf4878be42ab41b2a21ad5252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryMenuScreen: {fileID: 0}
+  inventoryMenuScreen: {fileID: 336898149}
 --- !u!1 &1991608034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,7 +1322,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: INVENTORY
+  m_text: Press "I" for Inventory
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1349,7 +1349,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 54
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1640,8 +1640,6 @@ GameObject:
   - component: {fileID: 8721578121679799822}
   - component: {fileID: 5266885782504448999}
   - component: {fileID: 106195578547407296}
-  - component: {fileID: 7268744317458475857}
-  - component: {fileID: 8721578121679799823}
   m_Layer: 5
   m_Name: TempInventoryMenuButton
   m_TagString: Untagged
@@ -1669,50 +1667,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7268744317458475857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6650216871103602611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.8867924, g: 0.67100453, b: 0.15477037, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.8867924, g: 0.67100453, b: 0.15477037, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 106195578547407296}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &7460216108027081726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1774,22 +1728,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 38, y: -444}
-  m_SizeDelta: {x: -1446.4534, y: -948.0901}
+  m_AnchoredPosition: {x: 38, y: -479.77612}
+  m_SizeDelta: {x: -1269.9578, y: -1019.6423}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8721578121679799823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6650216871103602611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 807e80aebf33b4940b25625bbcb41bb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetMenuScreen: {fileID: 336898149}
 --- !u!224 &8817628471285161633
 RectTransform:
   m_ObjectHideFlags: 0

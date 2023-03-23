@@ -12,7 +12,8 @@ namespace AbandonMine.UI
 
         public event MenuScreenHandler OnShowEvent;
         public event MenuScreenHandler OnHideEvent;
-        
+
+        public bool IsVisible { get => gameObject.activeSelf; }
             
         private CanvasGroup canvasGroup;
 
@@ -39,9 +40,9 @@ namespace AbandonMine.UI
             canvasGroup.DOFade(0.0f, 0.3f).OnComplete(
                 () =>
                 {
-                    gameObject.SetActive(false);
                     OnHideEvent?.Invoke();
                     OnBecameHiddenCallback?.Invoke();
+                    gameObject.SetActive(false);
                 });
         }
     }
