@@ -10,8 +10,8 @@ namespace AbandonMine.UI
     {
         public delegate void MenuScreenHandler();
 
-        public MenuScreenHandler onBecameVisibleEvent;
-        public MenuScreenHandler onBecameHiddenEvent;
+        public event MenuScreenHandler OnShowEvent;
+        public event MenuScreenHandler OnHideEvent;
         
             
         private CanvasGroup canvasGroup;
@@ -21,27 +21,27 @@ namespace AbandonMine.UI
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public void ShowScreen(MenuScreenHandler onBecameVisibleCallback)
+        public void ShowScreen(MenuScreenHandler OnBecameVisibleCallback)
         {
             gameObject.SetActive(true);
             canvasGroup.alpha = 0.0f;
             canvasGroup.DOFade(1.0f, 0.3f).OnComplete(
                 () =>
                 {
-                    onBecameVisibleEvent?.Invoke();
-                    onBecameVisibleCallback?.Invoke();
+                    OnShowEvent?.Invoke();
+                    OnBecameVisibleCallback?.Invoke();
                 });
         }
 
-        public void HideScreen(MenuScreenHandler onBecameHiddenCallback)
+        public void HideScreen(MenuScreenHandler OnBecameHiddenCallback)
         {
             canvasGroup.alpha = 1.0f;
             canvasGroup.DOFade(0.0f, 0.3f).OnComplete(
                 () =>
                 {
                     gameObject.SetActive(false);
-                    onBecameHiddenEvent?.Invoke();
-                    onBecameHiddenCallback?.Invoke();
+                    OnHideEvent?.Invoke();
+                    OnBecameHiddenCallback?.Invoke();
                 });
         }
     }

@@ -21,6 +21,15 @@ namespace AbandonMine
             }
         }
 
+        public class PlayFabInventoryItemData
+        {
+            public string itemId;
+            public string itemClass;
+            public string itemDisplayName;
+        }
+
+        public delegate void GetInventoryItemListCallback(List<PlayFabInventoryItemData> itemList);
+
         public bool IsLogged => isLogged;
 
 
@@ -37,8 +46,6 @@ namespace AbandonMine
                     Debug.Log("Logged In to PlayFab!");
                     playFabId = result.PlayFabId;
                     isLogged = true;
-
-                    GetInventory();
                 },
                 error =>
                 {
@@ -47,20 +54,35 @@ namespace AbandonMine
         }
         
         
-        public void GetInventory()
+        public void GetInventoryItemList(GetInventoryItemListCallback callback)
         {
-            var request = new GetUserInventoryRequest();
-            PlayFabClientAPI.GetUserInventory(request,
+            PlayFabClientAPI.GetUserInventory(
+                new GetUserInventoryRequest(),
                 result =>
                 {
-                    foreach (var item in result.Inventory)
+                    if (callback != null)
                     {
-                        Debug.Log($"Id: {item.ItemId}, class: {item.ItemClass}, name: {item.DisplayName}");
+                        var playFabItemList = new List<PlayFabInventoryItemData>();
+
+                        foreach (var itemInstance in result.Inventory)
+                        {
+                            var playFabItem = new PlayFabInventoryItemData
+                            {
+                                itemId = itemInstance.ItemId,
+                                itemClass = itemInstance.ItemClass,
+                                itemDisplayName = itemInstance.DisplayName
+                            };
+
+                            playFabItemList.Add(playFabItem);
+                        }
+
+                        callback?.Invoke(playFabItemList);
                     }
                 },
                 error =>
                 {
                     Debug.Log("GetUserInventory failed!");
+                    callback?.Invoke(null);
                 });
         }
         
