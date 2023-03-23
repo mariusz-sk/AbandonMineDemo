@@ -22,9 +22,9 @@ namespace AbandonMine.UI
             if (Input.GetKeyDown(KeyCode.I) && inventoryMenuScreen != null)
             {
                 if (inventoryMenuScreen.IsVisible)
-                    inventoryMenuScreen.HideScreen(null);
+                    inventoryMenuScreen.HideScreen();
                 else
-                    inventoryMenuScreen.ShowScreen(null);
+                    inventoryMenuScreen.ShowScreen();
             }
         }
     }

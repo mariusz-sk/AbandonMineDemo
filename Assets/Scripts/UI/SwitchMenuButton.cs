@@ -39,12 +39,12 @@ namespace AbandonMine.UI
                     () =>
                     {
                         if (targetMenuScreen != null)
-                            targetMenuScreen.ShowScreen(null);
+                            targetMenuScreen.ShowScreen();
                     });
             }
             else if (targetMenuScreen)
             {
-                targetMenuScreen.ShowScreen(null);
+                targetMenuScreen.ShowScreen();
             }
         }
     }
