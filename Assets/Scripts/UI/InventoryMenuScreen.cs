@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using AbandonMine.Inventory;
+using System;
 
 namespace AbandonMine.UI
 {
@@ -9,9 +10,14 @@ namespace AbandonMine.UI
     {
         [SerializeField]
         private InventoryScreenItem inventoryItemPrefab;
+        
+        [SerializeField][Range(1, 64)]
+        private int maxItemCount = 10;
 
         [SerializeField]
         private RectTransform inventoryViewportContent;
+
+        private List<InventoryScreenItem> screenItemPool;
 
         private void OnEnable()
         {
@@ -29,6 +35,20 @@ namespace AbandonMine.UI
             PlayerInventory.OnInventoryListUpdatedEvent -= OnInventoryListUpdatedEventHandler;
         }
 
+        private void Start()
+        {
+            screenItemPool = new List<InventoryScreenItem>(maxItemCount);
+            for (int i=0; i<maxItemCount; i++)
+            {
+                InventoryScreenItem screenItem = GameObject.Instantiate<InventoryScreenItem>(inventoryItemPrefab, inventoryViewportContent);
+                screenItem.SetDisplayName("ITEM");
+                screenItem.SetIcon(null);
+                screenItem.gameObject.SetActive(false);
+
+                screenItemPool.Add(screenItem);
+            }
+        }
+
         private void OnShowEventHandler()
         {
             PlayerInventory.Instance.UpdateItemList();
@@ -36,37 +56,48 @@ namespace AbandonMine.UI
 
         private void OnHideEventHandler()
         {
-            DestroyItemListVisuals();
+            HideAllScreenItemVisuals();
         }
+
 
         private void OnInventoryListUpdatedEventHandler()
         {
             //Debug.Log("Inventory list updated");
-            RegenerateItemListVisuals();
+            StartCoroutine(RegenerateScreenItemVisuals());
         }
 
-        private void RegenerateItemListVisuals()
+        private IEnumerator RegenerateScreenItemVisuals()
         {
-            //DestroyItemListVisuals();
-
             var itemList = PlayerInventory.Instance.GetItemList();
+            
+            var waitForSeconds = new WaitForSeconds(0.5f);
 
-            foreach (var item in itemList)
+            int itemIndex = 0;
+            foreach (var screenItem in screenItemPool)
             {
-                InventoryScreenItem screenItem = GameObject.Instantiate<InventoryScreenItem>(inventoryItemPrefab, inventoryViewportContent);
-                screenItem.SetDisplayName(item.displayName);
-                screenItem.SetIcon(item.icon);
+                if (itemIndex < itemList.Count)
+                {
+                    screenItem.gameObject.SetActive(false);
+                    screenItem.SetDisplayName(itemList[itemIndex].displayName);
+                    screenItem.SetIcon(itemList[itemIndex].icon);
+                    screenItem.ShowItem();
+                }
+                else
+                {
+                    screenItem.HideItem();
+                }
+
+                yield return waitForSeconds;
+
+                itemIndex++;
             }
         }
 
-        private void DestroyItemListVisuals()
+        private void HideAllScreenItemVisuals()
         {
-            if (inventoryViewportContent == null)
-                return;
-
-            foreach (Transform child in inventoryViewportContent.transform)
+            foreach (var screenItem in screenItemPool)
             {
-                Destroy(child.gameObject);
+                screenItem.gameObject.SetActive(false);
             }
         }
     }
