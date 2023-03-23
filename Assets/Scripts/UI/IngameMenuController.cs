@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using AbandonMine.Inventory;
+using System;
 
 namespace AbandonMine.UI
 {
@@ -9,13 +12,29 @@ namespace AbandonMine.UI
         [SerializeField]
         private InventoryMenuScreen inventoryMenuScreen;
 
+        [SerializeField]
+        private TextMeshProUGUI currencyText;
+
+        private void OnEnable()
+        {
+            PlayerInventory.OnCurrencyAmountChangedEvent += OnCurrencyAmountChangedHandler;
+        }
+
+        private void OnDisable()
+        {
+            PlayerInventory.OnCurrencyAmountChangedEvent -= OnCurrencyAmountChangedHandler;
+        }
+
         private void Start()
         {
             if (inventoryMenuScreen != null)
             {
                 inventoryMenuScreen.gameObject.SetActive(false);
             }
+
+            UpdateCurrencyText();
         }
+
 
         private void Update()
         {
@@ -27,5 +46,19 @@ namespace AbandonMine.UI
                     inventoryMenuScreen.ShowScreen();
             }
         }
+
+        private void OnCurrencyAmountChangedHandler()
+        {
+            UpdateCurrencyText();
+        }
+
+        private void UpdateCurrencyText()
+        {
+            if (currencyText != null)
+            {
+                currencyText.text = $"Blue Gold = {PlayerInventory.Instance.CollectedCurrency}";
+            }
+        }
+
     }
 }

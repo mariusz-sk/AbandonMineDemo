@@ -20,7 +20,10 @@ namespace AbandonMine.Inventory
         public static PlayerInventory Instance { get; private set; }
 
         public delegate void OnInventoryListUpdatedHandler();
+        public delegate void OnCurrencyAmountChangedHandler();
+
         public static event OnInventoryListUpdatedHandler OnInventoryListUpdatedEvent;
+        public static event OnCurrencyAmountChangedHandler OnCurrencyAmountChangedEvent;
 
         public List<InventoryItem> Items { get; private set; } = new List<InventoryItem>();
         public int CollectedCurrency { get; private set; }
@@ -35,16 +38,23 @@ namespace AbandonMine.Inventory
         public void AddCurrencyAmount(int amount)
         {
             if (amount > 0)
+            {
                 CollectedCurrency += amount;
+                OnCurrencyAmountChangedEvent?.Invoke();
+            }
         }
 
         public void SubtractCurrencyAmount(int amount)
         {
             if (amount > 0)
+            {
                 CollectedCurrency -= amount;
 
-            if (CollectedCurrency < 0)
-                CollectedCurrency = 0;
+                if (CollectedCurrency < 0)
+                    CollectedCurrency = 0;
+
+                OnCurrencyAmountChangedEvent?.Invoke();
+            }
         }
 
         private void Awake()
