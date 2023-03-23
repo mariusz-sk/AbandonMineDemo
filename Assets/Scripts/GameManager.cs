@@ -24,7 +24,7 @@ namespace AbandonMine
 
         void Start()
         {
-            PlayFabManager.Instance.TryLogin();
+            PlayFabManager.Instance.Login();
         }
 
         private void Update()

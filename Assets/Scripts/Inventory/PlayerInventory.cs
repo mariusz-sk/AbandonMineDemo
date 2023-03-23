@@ -26,22 +26,7 @@ namespace AbandonMine.Inventory
         public void UpdateItemList()
         {
             itemList.Clear();
-            PlayFabManager.Instance.GetInventoryItemList(
-                playFabItemList =>
-                {
-                    foreach (var playFabItem in playFabItemList)
-                    {
-                        var itemData = itemDataList.FirstOrDefault(item => { return string.Equals(item.ItemClass, playFabItem.itemClass); });
-
-                        itemList.Add(new InventoryItem
-                        {
-                            displayName = playFabItem.itemDisplayName,
-                            icon = itemData != null ? itemData.InventoryIcon : null
-                        });
-                    };
-
-                    OnInventoryListUpdatedEvent?.Invoke();
-                });
+            PlayFabManager.Instance.GetInventoryItemList();
         }
 
         public List<InventoryItem> GetItemList()
@@ -62,9 +47,30 @@ namespace AbandonMine.Inventory
             }
         }
 
-        private InventoryItemData GetInventoryItemDataForItemClass(string itemClass)
+        private void OnEnable()
         {
-            return itemDataList.FirstOrDefault(item => { return item.ItemClass == itemClass; });
+            PlayFabManager.OnInventoryRetrievedEvent += OnInventoryRetrieved;
+        }
+
+        private void OnDisable()
+        {
+            PlayFabManager.OnInventoryRetrievedEvent -= OnInventoryRetrieved;
+        }
+
+        private void OnInventoryRetrieved(List<PlayFabManager.PlayFabInventoryItemData> playFabItemDataList)
+        {
+            foreach (var playFabItem in playFabItemDataList)
+            {
+                var itemData = itemDataList.FirstOrDefault(item => { return string.Equals(item.ItemClass, playFabItem.itemClass); });
+
+                itemList.Add(new InventoryItem
+                {
+                    displayName = playFabItem.itemDisplayName,
+                    icon = itemData != null ? itemData.InventoryIcon : null
+                });
+            };
+
+            OnInventoryListUpdatedEvent?.Invoke();
         }
     }
 }

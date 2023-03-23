@@ -28,63 +28,72 @@ namespace AbandonMine
             public string itemDisplayName;
         }
 
-        public delegate void GetInventoryItemListCallback(List<PlayFabInventoryItemData> itemList);
+        public delegate void LoggedInHandler(bool isSuccess);
+        public delegate void GetInventoryRetrievedHandler(List<PlayFabInventoryItemData> playFabItemDataList);
 
-        public bool IsLogged => isLogged;
+        public static event LoggedInHandler OnLoggedInEvent;
+        public static event GetInventoryRetrievedHandler OnInventoryRetrievedEvent;
+
+        public bool IsLogged => isLoggedIn;
 
 
         private static PlayFabManager instance;
-        private bool isLogged = false;
+        private bool isLoggedIn = false;
         private string playFabId;
 
-        public void TryLogin()
+        public void Login()
         {
-            var request = new LoginWithCustomIDRequest { CustomId = "TestPlayerCustomId", CreateAccount = true };
-            PlayFabClientAPI.LoginWithCustomID(request,
+            PlayFabClientAPI.LoginWithCustomID(
+                new LoginWithCustomIDRequest
+                {
+                    CustomId = "TestPlayerCustomId",
+                    CreateAccount = true
+                },
                 result =>
                 {
                     Debug.Log("Logged In to PlayFab!");
                     playFabId = result.PlayFabId;
-                    isLogged = true;
+                    isLoggedIn = true;
+
+                    OnLoggedInEvent?.Invoke(true);
                 },
                 error =>
                 {
-                    Debug.Log("Login to PlayFab failed");
+                    Debug.Log($"Login to PlayFab failed\n{error.ErrorMessage}");
+                    playFabId = "";
+                    isLoggedIn = false;
+
+                    OnLoggedInEvent?.Invoke(false);
                 });
         }
         
-        
-        public void GetInventoryItemList(GetInventoryItemListCallback callback)
+        public void GetInventoryItemList()
         {
             PlayFabClientAPI.GetUserInventory(
                 new GetUserInventoryRequest(),
                 result =>
                 {
-                    if (callback != null)
+                    var playFabItemDataList = new List<PlayFabInventoryItemData>();
+
+                    foreach (var itemInstance in result.Inventory)
                     {
-                        var playFabItemList = new List<PlayFabInventoryItemData>();
-
-                        foreach (var itemInstance in result.Inventory)
+                        var playFabItemData = new PlayFabInventoryItemData
                         {
-                            var playFabItem = new PlayFabInventoryItemData
-                            {
-                                itemId = itemInstance.ItemId,
-                                itemClass = itemInstance.ItemClass,
-                                itemDisplayName = itemInstance.DisplayName
-                            };
+                            itemId = itemInstance.ItemId,
+                            itemClass = itemInstance.ItemClass,
+                            itemDisplayName = itemInstance.DisplayName
+                        };
 
-                            playFabItemList.Add(playFabItem);
-                        }
-
-                        callback?.Invoke(playFabItemList);
+                        playFabItemDataList.Add(playFabItemData);
                     }
+
+                    OnInventoryRetrievedEvent?.Invoke(playFabItemDataList);
                 },
                 error =>
                 {
                     Debug.Log("GetUserInventory failed!");
-                    callback?.Invoke(null);
+                    OnInventoryRetrievedEvent?.Invoke(null);
                 });
         }
-        
     }
 }
