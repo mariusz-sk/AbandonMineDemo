@@ -8,7 +8,8 @@ namespace AbandonMine.Inventory
     public class PlayerInventory : MonoBehaviour
     {
         [SerializeField]
-        private InventoryItemData[] itemDataList;
+        private InventoryItemData[] itemDefinitions;
+
 
         public class InventoryItem
         {
@@ -18,20 +19,32 @@ namespace AbandonMine.Inventory
 
         public static PlayerInventory Instance { get; private set; }
 
-        public delegate void PlayerInventoryHandler();
-        public static event PlayerInventoryHandler OnInventoryListUpdatedEvent;
+        public delegate void OnInventoryListUpdatedHandler();
+        public static event OnInventoryListUpdatedHandler OnInventoryListUpdatedEvent;
 
-        private List<InventoryItem> itemList = new List<InventoryItem>();
+        public List<InventoryItem> Items { get; private set; } = new List<InventoryItem>();
+        public int CollectedCurrency { get; private set; }
+
 
         public void UpdateItemList()
         {
-            itemList.Clear();
-            PlayFabManager.Instance.GetInventoryItemList();
+            Items.Clear();
+            PlayFabManager.Instance.GetInventory();
+        }
+        
+        public void AddCurrencyAmount(int amount)
+        {
+            if (amount > 0)
+                CollectedCurrency += amount;
         }
 
-        public List<InventoryItem> GetItemList()
+        public void SubtractCurrencyAmount(int amount)
         {
-            return itemList;
+            if (amount > 0)
+                CollectedCurrency -= amount;
+
+            if (CollectedCurrency < 0)
+                CollectedCurrency = 0;
         }
 
         private void Awake()
@@ -57,16 +70,16 @@ namespace AbandonMine.Inventory
             PlayFabManager.OnInventoryRetrievedEvent -= OnInventoryRetrieved;
         }
 
-        private void OnInventoryRetrieved(List<PlayFabManager.PlayFabInventoryItemData> playFabItemDataList)
+        private void OnInventoryRetrieved(List<PlayFabManager.PlayFabInventoryItemData> playFabInventoryItems)
         {
-            foreach (var playFabItem in playFabItemDataList)
+            foreach (var playFabItem in playFabInventoryItems)
             {
-                var itemData = itemDataList.FirstOrDefault(item => { return string.Equals(item.ItemClass, playFabItem.itemClass); });
+                var itemDefinition = itemDefinitions.FirstOrDefault(item => { return string.Equals(item.ItemClass, playFabItem.itemClass); });
 
-                itemList.Add(new InventoryItem
+                Items.Add(new InventoryItem
                 {
                     displayName = playFabItem.itemDisplayName,
-                    icon = itemData != null ? itemData.InventoryIcon : null
+                    icon = itemDefinition != null ? itemDefinition.InventoryIcon : null
                 });
             };
 

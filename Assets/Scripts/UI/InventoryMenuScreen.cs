@@ -68,18 +68,18 @@ namespace AbandonMine.UI
 
         private IEnumerator RegenerateScreenItemVisuals()
         {
-            var itemList = PlayerInventory.Instance.GetItemList();
+            var inventoryItems = PlayerInventory.Instance.Items;
             
             var waitForSeconds = new WaitForSeconds(0.5f);
 
             int itemIndex = 0;
             foreach (var screenItem in screenItemPool)
             {
-                if (itemIndex < itemList.Count)
+                if (itemIndex < inventoryItems.Count)
                 {
                     screenItem.gameObject.SetActive(false);
-                    screenItem.SetDisplayName(itemList[itemIndex].displayName);
-                    screenItem.SetIcon(itemList[itemIndex].icon);
+                    screenItem.SetDisplayName(inventoryItems[itemIndex].displayName);
+                    screenItem.SetIcon(inventoryItems[itemIndex].icon);
                     screenItem.ShowItem();
                 }
                 else

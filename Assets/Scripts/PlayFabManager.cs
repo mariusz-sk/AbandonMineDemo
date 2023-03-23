@@ -28,11 +28,15 @@ namespace AbandonMine
             public string itemDisplayName;
         }
 
-        public delegate void LoggedInHandler(bool isSuccess);
-        public delegate void GetInventoryRetrievedHandler(List<PlayFabInventoryItemData> playFabItemDataList);
+        public delegate void OnLoggedInHandler(bool isSuccess);
+        public delegate void OnInventoryRetrievedHandler(List<PlayFabInventoryItemData> playFabInventoryItems);
+        public delegate void OnCurrencyRetrievedHandler(Dictionary<string, int> currencyInfo);
+        public delegate void OnCurrencyAddedHandler(bool isSuccess);
 
-        public static event LoggedInHandler OnLoggedInEvent;
-        public static event GetInventoryRetrievedHandler OnInventoryRetrievedEvent;
+        public static event OnLoggedInHandler OnLoggedInEvent;
+        public static event OnInventoryRetrievedHandler OnInventoryRetrievedEvent;
+        public static event OnCurrencyRetrievedHandler OnCurrencyRetrievedEvent;
+        public static event OnCurrencyAddedHandler OnCurrencyAddedEvent;
 
         public bool IsLogged => isLoggedIn;
 
@@ -67,7 +71,7 @@ namespace AbandonMine
                 });
         }
         
-        public void GetInventoryItemList()
+        public void GetInventory()
         {
             PlayFabClientAPI.GetUserInventory(
                 new GetUserInventoryRequest(),
@@ -93,6 +97,40 @@ namespace AbandonMine
                 {
                     Debug.Log("GetUserInventory failed!");
                     OnInventoryRetrievedEvent?.Invoke(null);
+                });
+        }
+
+        public void GetCurrency()
+        {
+            PlayFabClientAPI.GetUserInventory(
+                new GetUserInventoryRequest(),
+                result =>
+                {
+                    OnCurrencyRetrievedEvent?.Invoke(result.VirtualCurrency);
+                },
+                error =>
+                {
+                    Debug.Log($"GetCurrency failed!\n{error.ErrorMessage}");
+                    OnCurrencyRetrievedEvent?.Invoke(null);
+                });
+        }
+
+        public void AddCurrency(string currency, int amount)
+        {
+            PlayFabClientAPI.AddUserVirtualCurrency(
+                new AddUserVirtualCurrencyRequest
+                {
+                    VirtualCurrency = currency,
+                    Amount = amount
+                },
+                result =>
+                {
+                    OnCurrencyAddedEvent?.Invoke(true);
+                },
+                error =>
+                {
+                    Debug.Log($"AddCurrency failed!\n{error.ErrorMessage}");
+                    OnCurrencyAddedEvent?.Invoke(false);
                 });
         }
     }
