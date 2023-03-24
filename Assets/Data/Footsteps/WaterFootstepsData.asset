@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1710bdf021dc71f49850a128f9dd1092, type: 3}
+  m_Name: WaterFootstepsData
+  m_EditorClassIdentifier: 
+  surfaceTagName: Surface/Water
+  audioClips:
+  - {fileID: 8300000, guid: ad5064d36f8c26e49b0a30240b62549a, type: 3}
+  - {fileID: 8300000, guid: a29c9c973944ae84abe2160d42a09ec3, type: 3}
+  - {fileID: 8300000, guid: c2438e8280f3a224e9f57b49e39c8030, type: 3}
+  - {fileID: 8300000, guid: 1f48248d997f16343b96fb0f63d95c25, type: 3}
+  - {fileID: 8300000, guid: 228311eb4aed5fe46b55e3f3f276e69a, type: 3}

@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Surface/Grass
+  - Surface/Gravel
+  - Surface/Metal
+  - Surface/Tile
+  - Surface/Water
+  - Surface/Wood
   layers:
   - Default
   - TransparentFX

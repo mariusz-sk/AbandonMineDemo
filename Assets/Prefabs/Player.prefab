@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 4657331316507568681}
   - component: {fileID: 4657331316507568694}
   - component: {fileID: 1470991377}
+  - component: {fileID: 208351778186295442}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -201,6 +202,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df095657f876c9c4d896d02a9f6f92f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &208351778186295442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4657331316507568695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92af7fe1b23d6554b942a2ec981262ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepsData:
+  - {fileID: 11400000, guid: 46a2f34b6bfcd064695b8098c0ef815d, type: 2}
+  - {fileID: 11400000, guid: ce9471a6306a87142a3fec646d530599, type: 2}
+  - {fileID: 11400000, guid: f40cab9d1f1bab24f8004e8b9cd20b3e, type: 2}
+  - {fileID: 11400000, guid: 3fb5af88039140a45a4bdd2df4d788da, type: 2}
+  - {fileID: 11400000, guid: eae803562e5ecd0459f6a23d545674f3, type: 2}
+  - {fileID: 11400000, guid: 289c10b2470969748b9297fd1c854429, type: 2}
+  defaultAudioClip: {fileID: 0}
+  footstepDelay: 0.5
 --- !u!1 &4657331316790497755
 GameObject:
   m_ObjectHideFlags: 0
