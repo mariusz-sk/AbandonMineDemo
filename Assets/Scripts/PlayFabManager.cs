@@ -32,11 +32,15 @@ namespace AbandonMine
         public delegate void OnInventoryRetrievedHandler(List<PlayFabInventoryItemData> playFabInventoryItems);
         public delegate void OnCurrencyRetrievedHandler(Dictionary<string, int> currencyInfo);
         public delegate void OnCurrencyAddedHandler(bool isSuccess);
+        public delegate void OnUserDisplayNameRetrievedHandler(string userDisplayName);
+        public delegate void OnChangedUserDisplayNameHandler(bool isSuccess);
 
         public static event OnLoggedInHandler OnLoggedInEvent;
         public static event OnInventoryRetrievedHandler OnInventoryRetrievedEvent;
         public static event OnCurrencyRetrievedHandler OnCurrencyRetrievedEvent;
         public static event OnCurrencyAddedHandler OnCurrencyAddedEvent;
+        public static event OnUserDisplayNameRetrievedHandler OnUserDisplayNameRetrievedEvent;
+        public static event OnChangedUserDisplayNameHandler OnChangedUserDisplayNameEvent;
 
         public bool IsLogged => isLoggedIn;
 
@@ -131,6 +135,41 @@ namespace AbandonMine
                 {
                     Debug.Log($"AddCurrency failed!\n{error.ErrorMessage}");
                     OnCurrencyAddedEvent?.Invoke(false);
+                });
+        }
+
+        public void GetUserDisplayName()
+        {
+            PlayFabClientAPI.GetAccountInfo(
+                new GetAccountInfoRequest(),
+                result =>
+                {
+                    Debug.Log($"GetUserDisplayName succeded!");
+                    OnUserDisplayNameRetrievedEvent?.Invoke(result.AccountInfo.TitleInfo.DisplayName);
+                },
+                error =>
+                {
+                    Debug.Log($"GetUserDisplayName failed!\n{error.ErrorMessage}");
+                    OnUserDisplayNameRetrievedEvent?.Invoke(null);
+                });
+        }
+
+        public void ChangeUserDisplayName(string newDisplayName)
+        {
+            PlayFabClientAPI.UpdateUserTitleDisplayName(
+                new UpdateUserTitleDisplayNameRequest()
+                {
+                    DisplayName = newDisplayName
+                },
+                result =>
+                {
+                    Debug.Log($"ChangeUserDisplayName succeded!");
+                    OnChangedUserDisplayNameEvent?.Invoke(true);
+                },
+                error =>
+                {
+                    Debug.Log($"ChangeUserDisplayName failed!\n{error.ErrorMessage}");
+                    OnChangedUserDisplayNameEvent?.Invoke(false);
                 });
         }
     }
