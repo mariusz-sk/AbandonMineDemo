@@ -27,9 +27,10 @@ namespace AbandonMine.UI
 
         private void Start()
         {
-            if (inventoryMenuScreen != null)
+            MenuScreen[] menuScreens = GetComponentsInChildren<MenuScreen>();
+            foreach (var menuScreen in menuScreens)
             {
-                inventoryMenuScreen.gameObject.SetActive(false);
+                menuScreen.gameObject.SetActive(false);
             }
 
             UpdateCurrencyText();

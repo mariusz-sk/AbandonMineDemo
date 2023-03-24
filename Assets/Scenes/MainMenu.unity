@@ -508,8 +508,9 @@ GameObject:
   - component: {fileID: 723900485}
   - component: {fileID: 723900484}
   - component: {fileID: 723900483}
+  - component: {fileID: 723900487}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: MenuCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -598,6 +599,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &723900487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 723900482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59766590e1f3c6a418f37094da6ae819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialMenuScreen: {fileID: 979309346}
 --- !u!1 &979309341
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,14 +623,14 @@ GameObject:
   - component: {fileID: 979309342}
   - component: {fileID: 979309343}
   - component: {fileID: 979309345}
-  - component: {fileID: 979309344}
+  - component: {fileID: 979309346}
   m_Layer: 5
   m_Name: MainMenuScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &979309342
 RectTransform:
   m_ObjectHideFlags: 0
@@ -650,19 +664,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979309341}
   m_CullTransparentMesh: 1
---- !u!114 &979309344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979309341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59766590e1f3c6a418f37094da6ae819, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  optionsMenuScreen: {fileID: 1066030088}
 --- !u!225 &979309345
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -675,6 +676,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &979309346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979309341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d9f352573760be49af915f2bca5f2d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1066030086
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,7 +706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1066030087
 RectTransform:
   m_ObjectHideFlags: 0
@@ -801,7 +814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 807e80aebf33b4940b25625bbcb41bb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetMenuScreen: {fileID: 979309344}
+  targetMenuScreen: {fileID: 979309346}
 --- !u!114 &1435744365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1026,7 +1039,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 979309344}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AbandonMine.UI.MainMenuScreen, Assembly-CSharp
         m_MethodName: OnQuitButtonClicked
         m_Mode: 1
@@ -1454,7 +1467,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 979309344}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AbandonMine.UI.MainMenuScreen, Assembly-CSharp
         m_MethodName: OnNewGameButtonClicked
         m_Mode: 1
