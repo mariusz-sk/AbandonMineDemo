@@ -34,6 +34,8 @@ namespace AbandonMine
         public delegate void OnCurrencyAddedHandler(bool isSuccess);
         public delegate void OnUserDisplayNameRetrievedHandler(string userDisplayName);
         public delegate void OnChangedUserDisplayNameHandler(bool isSuccess);
+        public delegate void OnUserDataRetrievedHandler(Dictionary<string, string> retrievedData);
+        public delegate void OnChangedUserDataHandler(bool isSuccess);
 
         public static event OnLoggedInHandler OnLoggedInEvent;
         public static event OnInventoryRetrievedHandler OnInventoryRetrievedEvent;
@@ -41,6 +43,8 @@ namespace AbandonMine
         public static event OnCurrencyAddedHandler OnCurrencyAddedEvent;
         public static event OnUserDisplayNameRetrievedHandler OnUserDisplayNameRetrievedEvent;
         public static event OnChangedUserDisplayNameHandler OnChangedUserDisplayNameEvent;
+        public static event OnUserDataRetrievedHandler OnUserDataRetrievedEvent;
+        public static event OnChangedUserDataHandler OnChangedUserDataEvent;
 
         public bool IsLogged => isLoggedIn;
 
@@ -170,6 +174,51 @@ namespace AbandonMine
                 {
                     Debug.Log($"ChangeUserDisplayName failed!\n{error.ErrorMessage}");
                     OnChangedUserDisplayNameEvent?.Invoke(false);
+                });
+        }
+
+
+        public void GetUserData(List<string> paramNames)
+        {
+            PlayFabClientAPI.GetUserData(
+                new GetUserDataRequest()
+                {
+                    Keys = paramNames
+                },
+                result =>
+                {
+                    Debug.Log($"GetUserData succeded!");
+                    var retrievedData = new Dictionary<string, string>();
+                    foreach (var item in result.Data)
+                    {
+                        retrievedData.Add(item.Key, item.Value.Value);
+                    }
+
+                    OnUserDataRetrievedEvent?.Invoke(retrievedData);
+                },
+                error =>
+                {
+                    Debug.Log($"GetUserDisplayName failed!\n{error.ErrorMessage}");
+                    OnUserDataRetrievedEvent?.Invoke(null);
+                });
+        }
+
+        public void ChangeUserData(Dictionary<string, string> userData)
+        {
+            PlayFabClientAPI.UpdateUserData(
+                new UpdateUserDataRequest()
+                {
+                    Data = userData
+                },
+                result =>
+                {
+                    Debug.Log($"ChangeUserData succeded!");
+                    OnChangedUserDataEvent?.Invoke(true);
+                },
+                error =>
+                {
+                    Debug.Log($"ChangeUserData failed!\n{error.ErrorMessage}");
+                    OnChangedUserDataEvent?.Invoke(false);
                 });
         }
     }
