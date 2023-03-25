@@ -177,7 +177,6 @@ namespace AbandonMine
                 });
         }
 
-
         public void GetUserData(List<string> paramNames)
         {
             PlayFabClientAPI.GetUserData(

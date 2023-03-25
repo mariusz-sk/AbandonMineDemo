@@ -13,15 +13,21 @@ namespace AbandonMine.UI
         private InventoryMenuScreen inventoryMenuScreen;
 
         [SerializeField]
+        private EndLevelScreen endLevelScreen;
+
+        [SerializeField]
         private TextMeshProUGUI currencyText;
 
         private void OnEnable()
         {
+            GameManager.OnPlayerHasFinishedLevelEvent += OnPlayerHasFinishedLevelEventHandler;
             PlayerInventory.OnCurrencyAmountChangedEvent += OnCurrencyAmountChangedHandler;
         }
 
+
         private void OnDisable()
         {
+            GameManager.OnPlayerHasFinishedLevelEvent -= OnPlayerHasFinishedLevelEventHandler;
             PlayerInventory.OnCurrencyAmountChangedEvent -= OnCurrencyAmountChangedHandler;
         }
 
@@ -58,6 +64,22 @@ namespace AbandonMine.UI
             if (currencyText != null)
             {
                 currencyText.text = $"Blue Gold = {PlayerInventory.Instance.CollectedCurrency}";
+            }
+        }
+        
+        private void OnPlayerHasFinishedLevelEventHandler()
+        {
+            if (inventoryMenuScreen.IsVisible)
+            {
+                inventoryMenuScreen.HideScreen(
+                    () =>
+                    {
+                        endLevelScreen.ShowScreen();
+                    });
+            }
+            else
+            {
+                endLevelScreen.ShowScreen();
             }
         }
 
