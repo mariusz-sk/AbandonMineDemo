@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1710bdf021dc71f49850a128f9dd1092, type: 3}
+  m_Name: MetalFootstepsData
+  m_EditorClassIdentifier: 
+  surfaceTagName: Surface/Metal
+  audioClips:
+  - {fileID: 8300000, guid: 6c977574af436a241b2b2ff3d2c7c077, type: 3}
+  - {fileID: 8300000, guid: 1a60ada74221e844f84b4ade06d92c2a, type: 3}
+  - {fileID: 8300000, guid: c7a2203aa4221cf41b629ca9864e9468, type: 3}
+  - {fileID: 8300000, guid: 968085c16803fc643a52132d9df691e3, type: 3}
+  - {fileID: 8300000, guid: 9a65abe1f519a634e9be827e96674b2a, type: 3}
+  - {fileID: 8300000, guid: c1091004fb0d5454cb0b6eb2dc023601, type: 3}
+  - {fileID: 8300000, guid: 8930f59fc5aa03c48a7eb931b0be44bf, type: 3}
+  - {fileID: 8300000, guid: 43fa3e48c46de694e8e97532abfbe9d7, type: 3}
