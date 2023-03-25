@@ -72,12 +72,20 @@ namespace AbandonMine.Inventory
 
         private void OnEnable()
         {
+            GameManager.OnStartNewGameEvent += OnStartNewGameHandler;
             PlayFabManager.OnInventoryRetrievedEvent += OnInventoryRetrieved;
         }
 
+
         private void OnDisable()
         {
+            GameManager.OnStartNewGameEvent -= OnStartNewGameHandler;
             PlayFabManager.OnInventoryRetrievedEvent -= OnInventoryRetrieved;
+        }
+        
+        private void OnStartNewGameHandler()
+        {
+            CollectedCurrency = 0;
         }
 
         private void OnInventoryRetrieved(List<PlayFabManager.PlayFabInventoryItemData> playFabInventoryItems)

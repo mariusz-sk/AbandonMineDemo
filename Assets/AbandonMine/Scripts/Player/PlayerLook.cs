@@ -18,12 +18,15 @@ namespace AbandonMine.Player
         private Transform myTransform;
         private InputReceiver inputReceiver;
 
+        private bool isPaused;
         private float mouseX;
         private float mouseY;
         private float cameraPitch = 0.0f;
 
         private void Awake()
         {
+            isPaused = true;
+
             myTransform = GetComponent<Transform>();
             inputReceiver = GetComponent<InputReceiver>();
 
@@ -37,6 +40,29 @@ namespace AbandonMine.Player
             }
         }
 
+        private void OnEnable()
+        {
+            GameManager.OnPauseGameplayEvent += OnPauseGameplayHandler;
+            GameManager.OnResumeGameplayEvent += OnResumeGameplayHandler;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnPauseGameplayEvent -= OnPauseGameplayHandler;
+            GameManager.OnResumeGameplayEvent -= OnResumeGameplayHandler;
+        }
+
+        private void OnPauseGameplayHandler()
+        {
+            isPaused = true;
+            mouseX = mouseY = 0.0f;
+        }
+
+        private void OnResumeGameplayHandler()
+        {
+            isPaused = false;
+        }
+
         void Update()
         {
             GetInput();
@@ -46,7 +72,7 @@ namespace AbandonMine.Player
 
         private void GetInput()
         {
-            if (inputReceiver == null)
+            if (inputReceiver == null || isPaused)
                 return;
 
             mouseX = inputReceiver.MouseXAxisValue;

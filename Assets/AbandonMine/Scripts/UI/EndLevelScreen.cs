@@ -48,8 +48,7 @@ namespace AbandonMine.UI
             PlayFabManager.Instance.AddCurrency("BG", PlayerInventory.Instance.CollectedCurrency);
 
             levelPlayTimeText.text = "-:-";
-            //collectedCurrencyText.text = $"{PlayerInventory.Instance.CollectedCurrency} BG";
-            StartCoroutine(AnimateTextValueCo(collectedCurrencyText, 0, PlayerInventory.Instance.CollectedCurrency, 20.0f));
+            StartCoroutine(AnimateTextValueCo(collectedCurrencyText, 0, PlayerInventory.Instance.CollectedCurrency, 40.0f));
             totalCurrencyText.text = "-:-";
         }
 
@@ -57,7 +56,7 @@ namespace AbandonMine.UI
         {
             int blueGoldAmount = currencyInfo.GetValueOrDefault("BG", 0);
             //totalCurrencyText.text = $"{blueGoldAmount} BG";
-            StartCoroutine(AnimateTextValueCo(totalCurrencyText, 0, blueGoldAmount, 20.0f));
+            StartCoroutine(AnimateTextValueCo(totalCurrencyText, 0, blueGoldAmount, 40.0f));
             
         }
 

@@ -29,6 +29,8 @@ namespace AbandonMine.Player
         private Rigidbody myRigidbody;
         private InputReceiver inputReceiver;
 
+        private bool isPaused;
+
         private Vector3 moveVector;
         private bool isGrounded;
 
@@ -43,9 +45,32 @@ namespace AbandonMine.Player
             inputReceiver = GetComponent<InputReceiver>();
         }
 
+        private void OnEnable()
+        {
+            GameManager.OnPauseGameplayEvent += OnPauseGameplayHandler;
+            GameManager.OnResumeGameplayEvent += OnResumeGameplayHandler;
+        }
+
+        private void OnDisable()
+        {
+            GameManager.OnPauseGameplayEvent -= OnPauseGameplayHandler;
+            GameManager.OnResumeGameplayEvent -= OnResumeGameplayHandler;
+        }
+
+        private void OnPauseGameplayHandler()
+        {
+            isPaused = true;
+        }
+
+        private void OnResumeGameplayHandler()
+        {
+            isPaused = false;
+        }
+
         private void Start()
         {
             myRigidbody.freezeRotation = true;
+            isPaused = true;
         }
 
         void Update()
@@ -65,7 +90,7 @@ namespace AbandonMine.Player
 
         private void GetInput()
         {
-            if (inputReceiver == null)
+            if (inputReceiver == null || isPaused)
                 return;
 
             verticalAxis = inputReceiver.VerticalAxisValue;

@@ -18,6 +18,24 @@ namespace AbandonMine.UI
         [SerializeField]
         private TextMeshProUGUI currencyText;
 
+        public static IngameMenuController Instance { get; private set; }
+
+        public static event Action OnIngameMenuScreenShowEvent;
+        public static event Action OnIngameMenuScreenHideEvent;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
         private void OnEnable()
         {
             GameManager.OnPlayerHasFinishedLevelEvent += OnPlayerHasFinishedLevelEventHandler;
@@ -48,9 +66,15 @@ namespace AbandonMine.UI
             if (Input.GetKeyDown(KeyCode.I) && inventoryMenuScreen != null)
             {
                 if (inventoryMenuScreen.IsVisible)
+                {
                     inventoryMenuScreen.HideScreen();
+                    OnIngameMenuScreenHideEvent?.Invoke();
+                }
                 else
+                {
                     inventoryMenuScreen.ShowScreen();
+                    OnIngameMenuScreenShowEvent?.Invoke();
+                }
             }
         }
 
@@ -81,6 +105,8 @@ namespace AbandonMine.UI
             {
                 endLevelScreen.ShowScreen();
             }
+
+            OnIngameMenuScreenShowEvent?.Invoke();
         }
 
     }
