@@ -47,7 +47,7 @@ namespace AbandonMine.UI
         {
             PlayFabManager.Instance.AddCurrency("BG", PlayerInventory.Instance.CollectedCurrency);
 
-            levelPlayTimeText.text = "-:-";
+            StartCoroutine(AnimateTextValueCo(levelPlayTimeText, 0.0f, GameManager.Instance.LevelPlayTime, 40.0f));
             StartCoroutine(AnimateTextValueCo(collectedCurrencyText, 0, PlayerInventory.Instance.CollectedCurrency, 40.0f));
             totalCurrencyText.text = "-:-";
         }
@@ -70,6 +70,17 @@ namespace AbandonMine.UI
             var waitFor = new WaitForSeconds(1.0f / amountPerSecond);
 
             for (int value = startValue; value <= endValue; value++)
+            {
+                field.text = $"{value}";
+                yield return waitFor;
+            }
+        }
+
+        private IEnumerator AnimateTextValueCo(TextMeshProUGUI field, float startValue, float endValue, float amountPerSecond)
+        {
+            var waitFor = new WaitForSeconds(1.0f / amountPerSecond);
+
+            for (float value = startValue; value <= endValue; value+=1.0f)
             {
                 field.text = $"{value}";
                 yield return waitFor;

@@ -17,6 +17,10 @@ namespace AbandonMine
         public static event Action OnResumeGameplayEvent;
         public static event Action OnPlayerHasFinishedLevelEvent;
 
+        public float LevelPlayTime;
+
+        private bool isPaused = true;
+
         public void PlayerFinishedLevel()
         {
             OnPlayerHasFinishedLevelEvent?.Invoke();
@@ -61,19 +65,31 @@ namespace AbandonMine
                 StartGame();
             }
         }
+
         private void StartGame()
         {
+            isPaused = false;
+            LevelPlayTime = 0.0f;
+
             OnStartNewGameEvent?.Invoke();
             OnResumeGameplayEvent?.Invoke();
         }
 
+        private void Update()
+        {
+            if (!isPaused)
+                LevelPlayTime += Time.deltaTime;
+        }
+
         private void OnIngameMenuScreenShowHandler()
         {
+            isPaused = true;
             OnPauseGameplayEvent?.Invoke();
         }
 
         private void OnIngameMenuScreenHideHandler()
         {
+            isPaused = false;
             OnResumeGameplayEvent?.Invoke();
         }
         
