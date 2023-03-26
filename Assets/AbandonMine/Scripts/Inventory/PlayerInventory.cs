@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,8 @@ namespace AbandonMine.Inventory
 
         public static PlayerInventory Instance { get; private set; }
 
-        public delegate void OnInventoryListUpdatedHandler();
-        public delegate void OnCurrencyAmountChangedHandler();
-
-        public static event OnInventoryListUpdatedHandler OnInventoryListUpdatedEvent;
-        public static event OnCurrencyAmountChangedHandler OnCurrencyAmountChangedEvent;
+        public static event Action OnInventoryListUpdatedEvent;
+        public static event Action OnCurrencyAmountChangedEvent;
 
         public List<InventoryItem> Items { get; private set; } = new List<InventoryItem>();
         public int CollectedCurrency { get; private set; }

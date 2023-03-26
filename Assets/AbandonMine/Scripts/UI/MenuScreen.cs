@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,8 @@ namespace AbandonMine.UI
     [RequireComponent(typeof(CanvasGroup))]
     public class MenuScreen : MonoBehaviour
     {
-        public delegate void MenuScreenHandler();
-
-        public event MenuScreenHandler OnShowEvent;
-        public event MenuScreenHandler OnHideEvent;
+        public event Action OnShowEvent;
+        public event Action OnHideEvent;
 
         public bool IsVisible { get => gameObject.activeSelf; }
             
@@ -24,7 +23,7 @@ namespace AbandonMine.UI
 
         public void ShowScreen() => ShowScreen(null);
 
-        public void ShowScreen(MenuScreenHandler OnShowCallback)
+        public void ShowScreen(Action OnShowCallback)
         {
             gameObject.SetActive(true);
             canvasGroup.alpha = 0.0f;
@@ -38,7 +37,7 @@ namespace AbandonMine.UI
 
         public void HideScreen() => HideScreen(null);
 
-        public void HideScreen(MenuScreenHandler OnHideCallback)
+        public void HideScreen(Action OnHideCallback)
         {
             canvasGroup.alpha = 1.0f;
             canvasGroup.DOFade(0.0f, 0.3f).OnComplete(
