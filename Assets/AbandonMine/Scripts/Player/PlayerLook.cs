@@ -18,15 +18,13 @@ namespace AbandonMine.Player
         private Transform myTransform;
         private InputReceiver inputReceiver;
 
-        private bool isPaused;
+        private bool isPaused = true;
         private float mouseX;
         private float mouseY;
         private float cameraPitch = 0.0f;
 
         private void Awake()
         {
-            isPaused = true;
-
             myTransform = GetComponent<Transform>();
             inputReceiver = GetComponent<InputReceiver>();
 

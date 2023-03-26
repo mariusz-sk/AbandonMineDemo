@@ -29,7 +29,7 @@ namespace AbandonMine.Player
         private Rigidbody myRigidbody;
         private InputReceiver inputReceiver;
 
-        private bool isPaused;
+        private bool isPaused = true;
 
         private Vector3 moveVector;
         private bool isGrounded;
@@ -60,6 +60,7 @@ namespace AbandonMine.Player
         private void OnPauseGameplayHandler()
         {
             isPaused = true;
+            moveVector = Vector3.zero;
         }
 
         private void OnResumeGameplayHandler()
@@ -70,7 +71,6 @@ namespace AbandonMine.Player
         private void Start()
         {
             myRigidbody.freezeRotation = true;
-            isPaused = true;
         }
 
         void Update()
