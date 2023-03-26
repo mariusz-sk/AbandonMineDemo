@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using AbandonMine.Inventory;
 using System;
+using UnityEngine.SceneManagement;
 
 namespace AbandonMine.UI
 {
@@ -28,7 +29,6 @@ namespace AbandonMine.UI
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
             }
             else
             {
@@ -75,6 +75,11 @@ namespace AbandonMine.UI
                     inventoryMenuScreen.ShowScreen();
                     OnIngameMenuScreenShowEvent?.Invoke();
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                SceneManager.LoadScene(0);
             }
         }
 

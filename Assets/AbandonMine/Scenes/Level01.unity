@@ -289,7 +289,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 4}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &56829284
 MonoBehaviour:
@@ -1231,7 +1231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &336898147
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9490,7 +9490,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press "I" for Inventory
+  m_text: '"I" - Inventory, "M" - Main Menu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9713,10 +9713,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6691800965558139824, guid: 7945f423f6804cb4a879fd6c332b3c37, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 0d79cb3eb41ff17478a90a138d694520, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7945f423f6804cb4a879fd6c332b3c37, type: 3}
 --- !u!222 &5266885782504448999
@@ -10025,7 +10021,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 38, y: -479.77612}
-  m_SizeDelta: {x: -1269.9578, y: -1019.6423}
+  m_SizeDelta: {x: -479.9672, y: -1019.6423}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &8817628471285161633
 RectTransform:
