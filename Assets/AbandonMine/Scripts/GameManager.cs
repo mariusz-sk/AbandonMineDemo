@@ -54,6 +54,13 @@ namespace AbandonMine
             StartGame();
         }
 
+        private void OnLevelWasLoaded(int level)
+        {
+            if (level > 0)
+            {
+                StartGame();
+            }
+        }
         private void StartGame()
         {
             OnStartNewGameEvent?.Invoke();
